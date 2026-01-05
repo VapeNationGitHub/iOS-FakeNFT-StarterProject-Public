@@ -9,14 +9,9 @@ final class CatalogAssembly {
     }
 
     func build() -> UIViewController {
-        let presenter = CatalogPresenter(
-            catalogService: servicesAssembly.catalogService
-        )
-
-        let viewController = CatalogViewController(
-            presenter: presenter,
-            servicesAssembly: servicesAssembly
-        )
+        let catalogService = servicesAssembly.catalogService
+        let presenter = CatalogPresenter(catalogService: catalogService)
+        let viewController = CatalogViewController(presenter: presenter)
 
         presenter.view = viewController
         return viewController

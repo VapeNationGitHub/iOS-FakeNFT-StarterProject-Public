@@ -9,7 +9,6 @@ final class TabBarController: UITabBarController {
         image: UIImage(resource: .tbCatalogNoActive),
         tag: 0
     )
-
     private let basketTabBarItem = UITabBarItem(
         title: NSLocalizedString("Tab.basket", comment: ""),
         image: UIImage(resource: .tbBasketNoActive),
@@ -19,18 +18,17 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Каталог
         let catalogAssembly = CatalogAssembly(servicesAssembly: servicesAssembly)
-        let catalogVC = catalogAssembly.build()
-        let catalogNav = UINavigationController(rootViewController: catalogVC)
-        catalogNav.tabBarItem = catalogTabBarItem
-
-        // Корзина
-        let basketVC = BasketViewController()
-        let basketNav = UINavigationController(rootViewController: basketVC)
-        basketNav.tabBarItem = basketTabBarItem
+        let catalogController = catalogAssembly.build()
+        catalogController.tabBarItem = catalogTabBarItem
+        
+        let basketController = BasketViewController()
+        let navigationBasketController = UINavigationController(rootViewController: basketController)
+        basketController.tabBarItem = basketTabBarItem
 
         tabBar.unselectedItemTintColor = UIColor(resource: .ypBlack)
-        viewControllers = [catalogNav, basketNav]
+        viewControllers = [catalogController, navigationBasketController]
+
+        view.backgroundColor = UIColor(resource: .ypWhite)
     }
 }

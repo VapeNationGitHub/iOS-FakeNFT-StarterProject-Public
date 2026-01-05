@@ -20,27 +20,21 @@ final class CatalogPresenter: CatalogPresenterProtocol {
     // MARK: - CatalogPresenterProtocol
 
     func viewDidLoad() {
-        print("🚀 CatalogPresenter viewDidLoad")
         view?.showLoading()
 
         catalogService.loadCollections { [weak self] result in
             guard let self else { return }
-            
-            print("📦 CatalogPresenter got result:", result)
 
             self.view?.hideLoading()
 
             switch result {
             case .success(let collections):
-                
-                print("✅ collections.count =", collections.count)
-                
                 self.collections = collections
                 self.view?.reloadData()
 
-            case .failure(let error):
-                
-                print("❌ error =", error)
+            case .failure:
+                // обработка ошибок будет отдельной карточкой
+                break
             }
         }
     }
